@@ -1,3 +1,4 @@
+const { response } = require('express');
 const express = require('express');
 const { v4 : uuidV4 } = require('uuid');
 
@@ -9,6 +10,12 @@ let regularCustomers = [];
 
 server.post('/account', (req, res) => {
 	const { cpf, name } = req.body;
+
+	const customerAlreadyExists = regularCustomers.some(customer => customer.cpf === cpf)
+
+	if(customerAlreadyExists){
+		return res.status(400).send({error: "Customer already exists!"})
+	}
 
 	let customer = {
 		cpf,
