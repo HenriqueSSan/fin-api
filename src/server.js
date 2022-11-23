@@ -33,9 +33,15 @@ server.post('/account', (req, res) => {
 server.get('/statement/:cpf', (req, res) => {
 	const { cpf } = req.params;
 
-	const customer = regularCustomers.find(customer => customer.cpf === cpf)
+	const customer = regularCustomers.find((customer) => customer.cpf === cpf);
 
-	return res.json(customer.statement)
+	if (!customer) {
+		return res.status(400).json({
+			error: 'Customer not found',
+		});
+	}
+
+	return res.json(customer.statement);
 });
 
 server.listen(4040, () => console.log('>> Staring Development....'));
