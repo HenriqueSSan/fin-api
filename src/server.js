@@ -51,4 +51,20 @@ server.get('/statement', verifyIfExistsAccountCPF, (req, res) => {
 	return res.json(customer.statement);
 });
 
+server.post('/deposit', verifyIfExistsAccountCPF, (req, res) => {
+	const { description, amount } = req.body;
+	const { customer } = req;
+
+	const statementOperation = {
+		description,
+		amount,
+		create_at: new Date(),
+		type: 'CREDIT',
+	};
+
+	customer.statement.push(statementOperation);
+
+	return res.status(201).send();
+});
+
 server.listen(4040, () => console.log('>> Staring Development....'));
