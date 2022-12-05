@@ -115,4 +115,13 @@ server.get('/statement/date', verifyIfExistsAccountCPF, (req, res) => {
 	return res.status(200).json(statement);
 });
 
+server.put('/account', verifyIfExistsAccountCPF, (req, res) => {
+	const { name } = req.body;
+	const { customer } = req;
+
+	customer.name = name;
+
+	return res.status(201).send();
+});
+
 server.listen(4040, () => console.log('>> Staring Development....'));
