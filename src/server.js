@@ -124,4 +124,12 @@ server.put('/account', verifyIfExistsAccountCPF, (req, res) => {
 	return res.status(201).send();
 });
 
+server.delete('/account', verifyIfExistsAccountCPF, (req, res) => {
+	const { customer } = req;
+
+	regularCustomers.splice(customer, 1);
+
+	return res.status(200).json(regularCustomers);
+});
+
 server.listen(4040, () => console.log('>> Staring Development....'));
