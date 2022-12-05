@@ -124,6 +124,12 @@ server.put('/account', verifyIfExistsAccountCPF, (req, res) => {
 	return res.status(201).send();
 });
 
+server.get('/account', verifyIfExistsAccountCPF, (req, res) => {
+	const { customer } = req;
+
+	return res.status(200).json(customer);
+});
+
 server.delete('/account', verifyIfExistsAccountCPF, (req, res) => {
 	const { customer } = req;
 
