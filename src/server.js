@@ -138,4 +138,12 @@ server.delete('/account', verifyIfExistsAccountCPF, (req, res) => {
 	return res.status(200).json(regularCustomers);
 });
 
+server.get('/balance', verifyIfExistsAccountCPF, (req, res) => {
+	const { customer } = req;
+
+	const balance = getBalance(customer.statement);
+
+	return res.status(200).json(balance);
+});
+
 server.listen(4040, () => console.log('>> Staring Development....'));
